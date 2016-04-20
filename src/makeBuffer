@@ -1,0 +1,19 @@
+CC=g++
+pom1 =../_h
+CFLAGS =-Wall -I$(pom1)
+pom2=obj
+
+_H = BoundedBuffer.h
+_O = main.o BoundedBuffer.o
+
+H = $(patsubst %,$(pom1)/%,$(_H))
+O = $(patsubst %,$(pom2)/%,$(_O))
+
+izvrsniFajl: $(O)
+	$(CC) -o $@ $^ $(CFLAGS)
+$(pom2)/%.o: %.cpp $(H)
+	$(CC) -o $@ -c $< $(CFLAGS)
+.PHONY: clean
+clean:
+	rm -f $(pom2)/*.o
+	rm -f izvrsniFajl
